@@ -1,0 +1,63 @@
+import java.io.*;
+import java.util.*;
+
+/*
+ * Given an 2D Array {{0,0,1,1,1},
+                         {1,1,1,1,1},
+  {0,0,1,1,1},
+  {0,0,0,0,0}}
+  Find the lowest index position where 1 occurs in the Array,if 1 dosent occur return a negative integer
+ */
+
+class Solution {
+  
+    public static int findIndexForArray(int [][] inputArray){
+  
+    int lowestIndex = inputArray[0].length;
+
+    for(int i=0;i<inputArray.length;i++)
+    {
+      
+      int innerLength = inputArray[i].length;
+      
+     if(inputArray[i][innerLength-1] == 0) 
+     {
+       continue;
+     }
+      int floorIndex=0;
+      int roofIndex = lowestIndex;
+     
+      while(floorIndex <= roofIndex){
+        int guessIndex = (floorIndex+roofIndex)/2;
+      if(inputArray[i][guessIndex]==1){
+      lowestIndex=guessIndex;
+        roofIndex = guessIndex-1;
+      }
+        else {
+        floorIndex = guessIndex+1;
+         
+        }
+     
+      }
+    
+    }
+  if(lowestIndex == inputArray[0].length) {lowestIndex=-1;}
+    return lowestIndex;
+  
+  }
+  
+  public static void main(String[] args) {
+
+    /*int [][] numArray = {{0,0,1,1,1},
+                         {1,1,1,1,1},
+  {0,0,1,1,1},
+  {0,0,0,0,0}};*/
+    
+     int [][] numArray = {{0,0,0,0,0},
+                         {0,0,0,0,0},
+  {0,0,0,0,0},
+  {0,0,0,0,0}};
+    
+    System.out.println("The value of position is "+findIndexForArray(numArray));
+  }
+}
