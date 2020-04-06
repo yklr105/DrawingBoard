@@ -1,1 +1,59 @@
-/*Java Class to solve the above problem */
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
+
+class Solution {
+  
+  
+  /*The time complexity of the below is O(2N) in worst case where entire string is repeated character
+  Memory is O(n), where the n is size of input String
+  */
+   /* public static int lengthOfLongestSubstring(String s) {
+    
+      Set<Character> charSet = new HashSet<Character>();
+      char [] sArray = s.toCharArray();
+      int subStrLength=0,rightIndex=0,leftIndex=0;
+      while(rightIndex <sArray.length && leftIndex < sArray.length){
+      
+        if(!charSet.contains(sArray[leftIndex])){
+          charSet.add(sArray[leftIndex++]);
+          subStrLength = Math.max(subStrLength,leftIndex-rightIndex);
+          
+        }
+        else{
+          charSet.remove(sArray[rightIndex]);
+          
+          rightIndex++;
+        }
+      
+      }
+     
+      return subStrLength;
+
+    }*/
+/*The runtime is O(n) and memory is O(n)*/
+   public static int lengthOfLongestSubstring(String s) {
+    
+     Map<Character,Integer> charMap = new HashMap<Character,Integer>();
+     char []  sCharArray = s.toCharArray();
+     int returnLength=0;
+     for(int i=0,j=0;j<sCharArray.length;j++)
+     {
+        if(charMap.containsKey(sCharArray[j])){
+        
+        i = Math.max(i,charMap.get(sCharArray[j]));
+        }
+       returnLength = Math.max(returnLength,j-i+1);
+       charMap.put(sCharArray[j],j+1);
+     }
+return returnLength;
+    }
+
+  
+  public static void main(String args[]){
+    
+    System.out.println("The string to be tested is "+lengthOfLongestSubstring("bvv"));
+  
+  }
+}
