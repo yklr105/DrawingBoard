@@ -1,0 +1,54 @@
+import java.util.List;
+import java.util.ArrayList;
+
+/*
+The maximum number of times the below for loop will execute is the max value of Integer which is 2to the power of 31, the time complexity is O(1). Memory is O(n) but can be easily reduced to O(1) without storing the trimmed String
+
+*/
+
+class Solution {
+    public static int myAtoi(String str) {
+    
+      if (str == null || str.trim().length() == 0) 
+      {
+        return 0;
+      }
+      
+      String testStr = str.trim();
+      int numToReturn =0;
+      int sign =1,index=0;
+      if(testStr.charAt(0)== '-')
+      {
+        sign =-1;
+        index++;
+      }
+      else if(testStr.charAt(0)=='+')
+      {
+        index++;
+      }
+      
+      for(int i=index;i<testStr.length();i++) 
+      {
+        if(Character.isDigit(testStr.charAt(i)))
+        {
+          int digit = testStr.charAt(i) - '0';
+           if(Integer.MAX_VALUE/10 < numToReturn || Integer.MAX_VALUE/10 == numToReturn && Integer.MAX_VALUE %10 < digit)
+            return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+          numToReturn = (numToReturn*10)+digit;
+        }
+        else break;
+        
+      }
+      return numToReturn*sign;
+      
+      
+      
+    }
+  
+  public static void main(String args[])
+  {
+    System.out.println("The string to be tested is "+myAtoi("-91283472332"));
+    
+    
+  }
+}
