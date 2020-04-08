@@ -1,0 +1,41 @@
+
+/*
+Time complexity is O(n*m), thats the minimum we can do as we have to go through each element to find the product
+Space complexity O(n+m)
+
+
+*/
+class Solution {
+    public static String multiply(String num1, String num2) {
+     int [] prod = new int[num1.length()+num2.length()];
+      for(int i=num1.length()-1;i>=0;i--)
+      {
+        for(int j=num2.length()-1;j>=0;j--)
+        {
+          int product = (num1.charAt(i) - '0')*(num2.charAt(j)-'0');
+          /*Figure out which index in product array the number should be placed*/
+          int pos1 = i+j;
+          int pos2=i+j+1;
+          
+          int sum = product+prod[pos2];
+          prod[pos1]+=sum/10;
+          prod[pos2]=sum%10;
+            System.out.println(prod[0]+"  "+prod[1]+"  "+prod[2]+"  "+prod[3]+"  ");
+        }
+      
+        }
+      StringBuilder sb = new StringBuilder();
+      for(int p:prod)
+      {
+        if(!(sb.length() == 0 && p ==0))
+           sb.append(p);
+      }
+      return sb.length() == 0 ? "0":sb.toString();
+    }
+  public static void main(String args[])
+  {
+    
+    System.out.println("The string to find the product is "+multiply("99","99"));
+    
+  }
+}
