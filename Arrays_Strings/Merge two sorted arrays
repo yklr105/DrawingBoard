@@ -1,0 +1,69 @@
+class Solution {
+  /*
+  Time complexity is O(n+m)
+  Space complexity is O(n)
+  */
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+      
+      int n1Index=0,n2Index=0,mergedIndex=0;
+      
+    int [] nums1_copy = new int[m];
+    System.arraycopy(nums1, 0, nums1_copy, 0, m);
+
+   
+      while(mergedIndex < nums1.length)
+      {
+        if((n2Index>=nums2.length)||(n1Index < nums1_copy.length && nums1_copy[n1Index]<nums2[n2Index]))
+        {
+          nums1[mergedIndex++]=nums1_copy[n1Index];
+          n1Index++;
+        }
+        else if((n1Index>=nums1_copy.length)||(nums1_copy[n1Index]>=nums2[n2Index]))
+        {
+         nums1[mergedIndex++]=nums2[n2Index];
+          n2Index++;
+          
+        }
+      }
+    
+        
+    }
+  
+  /*
+  Time complexity is the same O(n+m)
+  Space complexity is O(1)
+  
+  */
+  public static void mergeTwo(int[] nums1, int m, int[] nums2, int n) {
+    
+    
+     int n1Index=m-1,n2Index=n-1,mergedIndex=nums1.length-1;
+    
+    while(mergedIndex >=0)
+    {
+      if((n2Index<0)||(n1Index >=0 && nums1[n1Index]>=nums2[n2Index]))
+      {
+        nums1[mergedIndex--]=nums1[n1Index];
+        n1Index--;
+      }
+      else if((n1Index<0)||(n2Index>=0 && nums1[n1Index] <nums2[n2Index]))
+      {
+        nums1[mergedIndex--]=nums2[n2Index];
+        n2Index--;
+      }
+    }
+  }
+  
+  public static void main(String args[])
+  {
+    int [] num1 = new int[]{1,2,3,0,0,0};
+    int [] num2 = new int[]{2,5,6};
+    mergeTwo(num1,3,num2,3);
+    for(int i=0;i<num1.length;i++)
+    {
+      System.out.print("  "+num1[i]);
+    }
+   
+    
+  }
+}
