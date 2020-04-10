@@ -1,0 +1,33 @@
+import java.util.Set;
+import java.util.HashSet;
+import java.util.*;
+
+class Solution {
+public static int lengthOfLongestSubstringTwoDistinct(String s) {
+int length = s.length();
+
+  Map<Character,Integer> charMap = new HashMap<Character,Integer>();
+  int right=0,left=0,maxLen=0;
+  
+  while(right < length)
+  {
+    charMap.put(s.charAt(right),right++);
+    if(charMap.size() == 3)
+    {
+      int delete_key = Collections.min(charMap.values());
+      left = delete_key+1;
+      charMap.remove(s.charAt(delete_key));
+    }
+    maxLen = Math.max(maxLen,right-left);
+  }
+  
+  return maxLen;
+  
+  }
+  
+  public static void main(String args[]){
+  System.out.println(lengthOfLongestSubstringTwoDistinct("abc"));
+  
+  
+  }
+}
