@@ -1,0 +1,92 @@
+class Solution {
+      private static Map<Integer, String> numericMap  = new HashMap<Integer, String>() {{
+     put(1, "One");
+     put(2, "Two");
+     put(3, "Three");
+     put(4, "Four");
+     put(5, "Five");
+     put(6, "Six");
+     put(7, "Seven");
+     put(8, "Eight");
+     put(9, "Nine");
+     put(11, "Eleven");
+     put(12, "Twelve");
+     put(13, "Thirteen");
+     put(14, "Fourteen");
+     put(15, "Fifteen");
+     put(16, "Sixteen");
+     put(17, "Seventeen");
+     put(18, "Eighteen");
+     put(19, "Nineteen");
+     put(10, "Ten");
+     put(20, "Twenty");
+     put(30, "Thirty");
+     put(40, "Forty");
+     put(50, "Fifty");
+     put(60, "Sixty");
+     put(70, "Seventy");
+     put(80, "Eighty");
+     put(90 ,"Ninety");
+}};
+    public String numberToWords(int num) {
+              if(num ==0) return "Zero";
+      StringBuilder sb = new StringBuilder();
+      
+      int billionDigit = num / 1000000000;
+      if(billionDigit !=0)
+      {
+        sb.append(numericMap.get(billionDigit));
+        sb.append(" Billion ");
+      }
+      num = num % 1000000000;
+      int millions = num/1000000;
+      if(millions != 0){
+      sb.append(numToWordsHelper(millions));
+      sb.append(" Million ");
+      }  
+      num = num % 1000000;
+      
+      int thousands = num / 1000;
+      if(thousands != 0)
+      {
+        sb.append(numberToWords(thousands));
+        sb.append(" Thousand ");
+      }
+      num = num % 1000;
+      sb.append(numToWordsHelper(num));
+      
+      return sb.toString().trim();
+        
+    }
+      public static String numToWordsHelper(int num)
+  {
+    StringBuffer strToReturn = new StringBuffer();
+    int hundred = num /100;
+    if(hundred !=0)
+    {
+      strToReturn.append(numericMap.get(hundred));
+      strToReturn.append(" Hundred ");
+    }
+    num = num % 100;
+    if(num !=0 && num < 20)
+    {
+      strToReturn.append(numericMap.get(num));
+    }
+    else
+    {
+      int tens = num /10;
+      if(tens != 0)
+      {
+        strToReturn.append(numericMap.get(tens*10));
+        strToReturn.append(" ");
+      }
+      num = num % 10;
+      if(num !=0)
+      {
+        strToReturn.append(numericMap.get(num));
+      }
+      
+    }
+    return strToReturn.toString().trim();
+  }
+}
