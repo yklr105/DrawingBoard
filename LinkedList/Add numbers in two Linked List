@@ -1,0 +1,54 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+  public class ListNode {
+      int val;
+     ListNode next;
+      ListNode(int x) { val = x; }
+  }
+  /*
+  The complexity is O(max(m,n)) where m and n are the size of Linked List
+  Space complexity is also O(max(m,n)) , +1 is ignored 
+  
+  */
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    
+      ListNode head = new ListNode(0);
+      ListNode previous = head;
+      int carryOver =0;
+      ListNode l1Head = l1;
+      ListNode l2Head = l2;
+      
+      while(l1Head != null || l2Head !=null)
+      {
+        int num1 = l1Head != null?l1Head.val:0;
+        int num2 = l2Head!=null?l2Head.val:0;
+        
+        int sum =num1+num2+carryOver;
+        
+        carryOver = sum/10;
+        int nodeValue = sum%10;
+        ListNode node = new ListNode(nodeValue);
+        previous.next = node;
+        previous=node;
+        
+        if(l1Head != null)l1Head = l1Head.next;
+        if(l2Head != null )l2Head = l2Head.next;
+      }
+      if(carryOver ==1)
+      {
+        ListNode node = new ListNode(carryOver);
+        previous.next = node;
+        
+      }
+      return head.next;
+    }
+    
+
+}
