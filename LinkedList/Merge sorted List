@@ -1,0 +1,41 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ Time complexity is O(NM)
+ Space Complexity is O(m+n)
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+            ListNode head = new ListNode(Integer.MAX_VALUE);
+    ListNode curr = head;
+    ListNode l1Curr = l1;
+    ListNode l2Curr = l2;
+    
+    
+    while(l1Curr != null || l2Curr !=null)
+    {
+      if(l2Curr==null ||( l1Curr!=null && l1Curr.val <= l2Curr.val))
+      {
+        ListNode node = new ListNode(l1Curr.val);
+        curr.next = node;
+        curr = node;
+        if(l1Curr != null) l1Curr = l1Curr.next;
+        
+      }
+      else if(l1Curr == null || (l2Curr !=null && l2Curr.val < l1Curr.val))
+      {
+        ListNode node = new ListNode(l2Curr.val);
+        curr.next = node;
+        curr=node;
+       if(l2Curr != null) l2Curr = l2Curr.next;
+      }
+      
+    }
+           
+      return head.next; 
+    }
+}
