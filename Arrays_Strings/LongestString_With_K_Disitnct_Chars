@@ -1,0 +1,80 @@
+import java.util.Set;
+import java.util.HashSet;
+import java.util.*;
+
+class Solution {
+  /*Time complexity is O(N) in best case scenario, worst case is O(nk)
+  Best case is value of k is 2 and string is aaabbbbbaaaaabbbbb, best case is when the string contains not more than K distinct characters 
+  Worst case is when String contains all distinct characters and at tha point at each step we might have to use O(k) time to find the min value, then time complexity is O(Nk)
+  Space Cmplexity is O(k)
+  */
+public static int lengthOfLongestSubstringKDistinct(String s,int k) {
+int length = s.length();
+
+  Map<Character,Integer> charMap = new HashMap<Character,Integer>();
+  int right=0,left=0,maxLen=0;
+  
+  while(right < length)
+  {
+    charMap.put(s.charAt(right),right++);
+    if(charMap.size() == k+1)
+    {
+      int delete_key = Collections.min(charMap.values());
+      left = delete_key+1;
+      charMap.remove(s.charAt(delete_key));
+    }
+    maxLen = Math.max(maxLen,right-left);
+  }
+  
+  return maxLen;
+  
+  }
+  
+  /*Using LinkedHashMap
+  
+  
+  LinkedHashMap is implemented using a HashMap and LinkedList.
+  
+  Insertion,deletion and lookup are provided by HashMap in O(1) time. However to find first or last added key value, LInked list provides that with O(1) functionality. Linked HashMap is an implmentation where the order the items are inserted is mantained.
+  
+  https://www.baeldung.com/java-linked-hashmap
+  LinkedHashMap<Integer, String> map = new LinkedHashMap<>(16, .75f, true);
+  1st param is initial capacity
+  2nd param is load factor
+  3rd is ordering mode  to indicate if access order should be turned on, default is insertion order.
+
+
+The below method has time complexity of O(N) , space complxity is still O(k)
+  */
+  public static int lengthOfLongestSubstringKDistinctOptimized(String s, int k)
+  {
+    if (k==0 || s.length() ==0) return 0;
+    
+    LinkedHashMap<Character, Integer> charMap = new LinkedHashMap<>();
+    int left=0,right=0,maxCount=0;
+    while(right<s.length())
+    {
+      Character charToAdd = s.charAt(right);
+      if(charMap.containsKey(charToAdd))
+        charMap.remove(charToAdd);
+     
+      charMap.put(charToAdd,right++);
+      
+      if(charMap.size() == k+1)
+      {
+        Map.Entry<Character,Integer> mapEntry = charMap.entrySet().iterator().next();
+        left = mapEntry.getValue()+1;
+        charMap.remove(mapEntry.getKey());
+        
+      }
+      maxCount = Math.max(maxCount,right-left);
+      
+    }
+    return maxCount;
+  }
+  public static void main(String args[]){
+  System.out.println(lengthOfLongestSubstringKDistinctOptimized("abc",2));
+  
+  
+  }
+}
