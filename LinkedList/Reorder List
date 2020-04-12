@@ -1,0 +1,48 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ Time complexity is O(N) , space complexity is O(1)
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head==null||head.next==null) return;
+      ListNode p1=head;
+      ListNode mid = head;
+        while(p1.next !=null && p1.next.next!=null)
+        {
+            mid = mid.next;
+            p1 = p1.next.next;
+        }
+        
+        ListNode origMid = mid;
+        ListNode curr = mid.next;
+        ListNode prev = null;
+        ListNode next = null;
+        while(curr!=null)
+        {
+            next=curr.next;
+            curr.next = prev;
+            prev=curr;
+            curr=next;
+        }
+        origMid.next = prev;
+        
+         p1=head;
+        ListNode p2=origMid.next;
+        
+        while(p1 != origMid){
+            origMid.next = p2.next;
+            p2.next = p1.next;
+            p1.next= p2;
+            p1 = p2.next;
+            p2=origMid.next;
+            
+            
+    }
+        
+    }
+}
