@@ -1,0 +1,63 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+   /*Time complexity is O(N) for all the nodes that needs to be traversed
+     Space complexity is O(1)
+   */
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        
+       ListNode dummy = new ListNode(0);
+        dummy.next = head;
+       
+       ListNode curr=dummy;
+       ListNode prev = null;
+        
+       for(int i=0;i<m;i++)
+       {
+           prev=curr;
+           curr=curr.next;
+       }
+        
+        ListNode prev1 = prev;
+        ListNode curr1 = curr;
+        ListNode next;
+        for(int i=m;i<=n;i++)
+        {
+            next = curr1.next;
+            curr1.next = prev1;
+            prev1=curr1;
+            curr1=next;
+        }
+      
+       prev.next=prev1;
+        curr.next = curr1;
+   
+        
+        return dummy.next;
+    }
+    
+   /* public static ListNode reverseListByLength(ListNode head,int numOfNodes)
+    {
+        
+        ListNode prev = null;
+        ListNode next = null;
+        ListNode curr = head;
+        int revCount =0;
+        while(curr != null && revCount <numOfNodes)
+        {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr=next;
+            revCount++;
+        }
+        head.next = curr;
+        return prev;
+    }*/
+}
