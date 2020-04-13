@@ -1,0 +1,156 @@
+import java.util.*;
+class Solution {
+    public static class BinaryTreeNode {
+
+        public int value;
+        public BinaryTreeNode left;
+        public BinaryTreeNode right;
+
+        public BinaryTreeNode(int value) {
+            this.value = value;
+        }
+
+        public BinaryTreeNode insertLeft(int leftValue) {
+            this.left = new BinaryTreeNode(leftValue);
+            return this.left;
+        }
+
+        public BinaryTreeNode insertRight(int rightValue) {
+            this.right = new BinaryTreeNode(rightValue);
+            return this.right;
+        }
+    }
+  
+  public static void printDFS(BinaryTreeNode node)
+  {
+    if (node == null)
+      return ;
+    else {
+      printDFS(node.left);
+      printDFS(node.right);
+      System.out.print("  "+node.value);
+      
+    }
+  }
+  
+  public static void printPreOrder(BinaryTreeNode node)
+  {
+    if(node ==null)return;
+    System.out.print(" "+node.value);
+    printPreOrder(node.left);
+    printPreOrder(node.right);
+    
+  }
+  
+    public static void printPostOrder(BinaryTreeNode node)
+  {
+    if(node ==null)return;
+
+    printPostOrder(node.left);
+    printPostOrder(node.right);
+    System.out.print(" "+node.value);
+    
+  }
+  
+  public static void printInOrder(BinaryTreeNode node)
+  {
+    if(node ==null)return;
+
+    printInOrder(node.left);
+    System.out.print(" "+node.value);
+    printInOrder(node.right);
+    
+  }
+  
+  /*
+  Time complexity is O(N)
+  Space Complexity is O(N) to store the stack
+  
+  */
+  public static boolean isValidBinaryTreeInOrder(BinaryTreeNode root){
+    
+    
+    Deque <BinaryTreeNode> treeStack = new ArrayDeque<BinaryTreeNode>();
+    BinaryTreeNode curr = root;
+    double lastValue = -Double.MAX_VALUE;
+    
+    while(!treeStack.isEmpty() || curr != null)
+    {
+      while(curr != null)
+      {
+        treeStack.push(curr);
+        curr = curr.left;
+      }
+      curr = treeStack.pop();
+     if(curr.value <= lastValue) 
+       return false;
+      
+      lastValue = curr.value;
+      curr = curr.right;
+    }
+    return true;  
+  }
+  
+  public static void printBFS(BinaryTreeNode node)
+  {
+    if (node == null) return;
+    Deque<BinaryTreeNode> nodeStack = new ArrayDeque<BinaryTreeNode>();
+    
+    nodeStack.add(node);
+    while(!nodeStack.isEmpty())
+    {
+     BinaryTreeNode element = nodeStack.remove();
+      System.out.print(" "+element.value);
+      if(element.left!=null)
+      {
+        nodeStack.add(element.left);
+      }
+      if(element.right != null)
+        nodeStack.add(element.right);
+      } 
+    }
+  /*
+  Time complexity is O(N)
+  Space complexity is O(N) for call stack
+  */
+  public static boolean isValidBSTReccur(BinaryTreeNode root)
+  {
+    return isValidBST(root,null,null);
+  }
+  public static boolean isValidBST(BinaryTreeNode node,Integer lower,Integer upper)
+  {
+    if (node ==null)
+    return true;
+    
+    if(lower != null && node.value <= lower)return false;
+    if(upper != null && node.value >= upper) return false;
+    
+    if (! isValidBST(node.right, node.value, upper)) return false;
+    if (! isValidBST(node.left, lower, node.value)) return false;
+    
+    return true;
+    
+  }
+public static void main(String args[])
+{
+  final BinaryTreeNode root = new BinaryTreeNode(50);
+        final BinaryTreeNode a = root.insertLeft(30);
+        a.insertLeft(10);
+        a.insertRight(40);
+        final BinaryTreeNode b = root.insertRight(70);
+        b.insertLeft(60);
+        b.insertRight(80);
+        
+       // printDFS(root);
+      //  printBFS(root);
+      printTreeBFS1(root);
+    //printPreOrder(root);
+    //printPostOrder(root);
+     //printInOrder(root);
+ // System.out.println("The tree is valid binaryTree "+ isValidBinaryTreeInOrder(root));
+  
+ // System.out.println("The tree is valid binaryTree "+ isValidBSTReccur(root));
+
+  
+}
+}
