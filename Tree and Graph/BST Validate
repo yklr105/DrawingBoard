@@ -1,0 +1,33 @@
+class Solution {
+     static LinkedList <TreeNode> treeStack = new LinkedList<TreeNode>();
+     static LinkedList<Integer> lowerBound = new LinkedList<Integer>();
+     static LinkedList<Integer> upperBound = new LinkedList<Integer>();  
+    
+public static void update(TreeNode node,Integer lower,Integer upper)
+  {
+    treeStack.add(node);
+    lowerBound.add(lower);
+    upperBound.add(upper);    
+  }
+ public boolean isValidBST(TreeNode root) {
+     treeStack = new LinkedList<TreeNode>();
+      lowerBound = new LinkedList<Integer>();
+     upperBound = new LinkedList<Integer>(); 
+    Integer lower = null, upper = null, val;
+    update(root, lower, upper);
+
+    while (!treeStack.isEmpty()) {
+      root = treeStack.poll();
+      lower = lowerBound.poll();
+      upper = upperBound.poll();
+
+      if (root == null) continue;
+      val = root.val;
+      if (lower != null && val <= lower) return false;
+      if (upper != null && val >= upper) return false;
+      update(root.right, val, upper);
+      update(root.left, lower, val);
+    }
+    return true;
+  }
+}
