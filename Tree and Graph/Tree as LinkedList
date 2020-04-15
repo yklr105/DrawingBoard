@@ -6,13 +6,12 @@
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
- *In place solution:
- *Time complexity is o(n) since every tree node is visited once
- *Space complexity is O(n) for recurrsive call stack
  */
 class Solution {
     
-    
+    /*Time complexity is O(N)
+    Space complexity is O(N)
+    */
     private TreeNode flattenTreeNode(TreeNode node)
     {
         if(node == null)
@@ -37,8 +36,27 @@ class Solution {
         }
         return rightTail == null? leftTail:rightTail;
     }
+    
+    /*Time complexity is O(n), even though some of the nodes are visited at most 2 times
+    Space complexity is O(1)
+    */
     public void flatten(TreeNode root) {
-        this.flattenTreeNode(root);
+       // this.flattenTreeNode(root);
+        TreeNode curr = root;
+        while(curr!=null)
+        {
+           if(curr.left != null)
+           {
+               TreeNode prev = curr.left;
+               while(prev.right != null)
+                   prev = prev.right;
+               
+               prev.right = curr.right;
+               curr.right = curr.left;
+               curr.left = null;   
+           }
+            curr=curr.right;
+        }
         
     }
 }
