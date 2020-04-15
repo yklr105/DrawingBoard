@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ *In place solution:
+ *Time complexity is o(n) since every tree node is visited once
+ *Space complexity is O(n) for recurrsive call stack
+ */
+class Solution {
+    
+    
+    private TreeNode flattenTreeNode(TreeNode node)
+    {
+        if(node == null)
+        {
+            return null;
+        }
+        
+        if(node.left == null && node.right == null)
+        {
+          return node;
+        }
+        
+        TreeNode leftTail = this.flattenTreeNode(node.left);
+        
+        TreeNode rightTail = this.flattenTreeNode(node.right);
+        
+        if(leftTail != null)
+        {
+            leftTail.right = node.right;
+            node.right = node.left;
+            node.left=null;
+        }
+        return rightTail == null? leftTail:rightTail;
+    }
+    public void flatten(TreeNode root) {
+        this.flattenTreeNode(root);
+        
+    }
+}
