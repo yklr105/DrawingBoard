@@ -1,0 +1,76 @@
+import java.util.*;
+class Solution {
+    public static class BinaryTreeNode {
+
+        public int value;
+        public BinaryTreeNode left;
+        public BinaryTreeNode right;
+
+        public BinaryTreeNode(int value) {
+            this.value = value;
+        }
+
+        public BinaryTreeNode insertLeft(int leftValue) {
+            this.left = new BinaryTreeNode(leftValue);
+            return this.left;
+        }
+
+        public BinaryTreeNode insertRight(int rightValue) {
+            this.right = new BinaryTreeNode(rightValue);
+            return this.right;
+        }
+    }
+  
+
+  
+public static List<Double> findAverageForEachLevel(BinaryTreeNode root)
+{
+  if(root == null)
+    return null;
+  
+  Deque <BinaryTreeNode> currentQueue = new ArrayDeque<BinaryTreeNode>();
+  
+  List<Double> returnList = new ArrayList<Double>();
+  Double sum=0.0,count=0.0;
+  currentQueue.add(root);  
+  while(!currentQueue.isEmpty())
+  {
+    Deque <BinaryTreeNode> childQueue = new ArrayDeque<BinaryTreeNode>();
+    while(!currentQueue.isEmpty())
+    {
+      BinaryTreeNode curr = currentQueue.remove();
+     
+      sum+=curr.value;
+      count++;
+      if(curr.left != null)
+        childQueue.add(curr.left);
+      if(curr.right != null)
+        childQueue.add(curr.right);
+    }
+    returnList.add(sum/count);
+    sum=0.0;
+    count=0.0;
+    currentQueue = childQueue;
+    
+  }
+  return returnList;
+}
+ 
+public static void main(String args[])
+{
+  final BinaryTreeNode root = new BinaryTreeNode(50);
+        final BinaryTreeNode a = root.insertLeft(30);
+        a.insertLeft(10);
+        a.insertRight(40);
+        final BinaryTreeNode b = root.insertRight(70);
+        b.insertLeft(60);
+        b.insertRight(80);
+        
+ List<Double> averageList = findAverageForEachLevel(root);
+  
+  for(Double avg:averageList)
+    System.out.print(" "+avg);
+
+  
+}
+}
