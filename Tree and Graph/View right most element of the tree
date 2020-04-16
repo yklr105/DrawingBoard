@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+/*
+Time complexity is O(n) as the entire tree is traversed at most once
+Space complexity is O(m) where O(m) is the 
+
+*/
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+           
+      
+      List<Integer> returnList = new ArrayList<Integer>();
+      TreeNode curr = root;
+           if(root == null)
+      return returnList;
+      
+      Deque<TreeNode> currQ = new ArrayDeque<TreeNode>();
+      currQ.push(root);
+      while(!currQ.isEmpty())
+      {
+        TreeNode topElem = currQ.peekFirst();
+        returnList.add(topElem.val);
+        Deque<TreeNode> childQ = new ArrayDeque<TreeNode>();
+        while(!currQ.isEmpty())
+        {
+            topElem = currQ.removeLast();
+          if(topElem.left != null)
+            childQ.push(topElem.left);
+          if(topElem.right != null)
+            childQ.push(topElem.right);
+        }
+        currQ=childQ;
+      }
+      return returnList;
+    }
+}
