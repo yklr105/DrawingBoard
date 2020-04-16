@@ -1,0 +1,98 @@
+import java.util.*;
+class Solution {
+    public static class BinaryTreeNode {
+
+        public int value;
+        public BinaryTreeNode left;
+        public BinaryTreeNode right;
+
+        public BinaryTreeNode(int value) {
+            this.value = value;
+        }
+
+        public BinaryTreeNode insertLeft(int leftValue) {
+            this.left = new BinaryTreeNode(leftValue);
+            return this.left;
+        }
+
+        public BinaryTreeNode insertRight(int rightValue) {
+            this.right = new BinaryTreeNode(rightValue);
+            return this.right;
+        }
+    }
+  
+public static void printInOrder(BinaryTreeNode node)
+{
+  if (node == null )
+    return;
+  
+  Deque <BinaryTreeNode> inorderStack = new ArrayDeque<BinaryTreeNode>();
+  BinaryTreeNode curr=node;
+  
+  while(!inorderStack.isEmpty() || curr != null)
+  {
+    while(curr != null)
+    {
+      inorderStack.push(curr);
+      curr= curr.left;
+    }
+      curr = inorderStack.pop();
+    System.out.println(" "+curr.value);
+    curr = curr.right;
+    
+    
+  }
+}
+  public static void printPostOrder(BinaryTreeNode node)
+  {
+    if(node ==null)return;
+
+    printPostOrder(node.left);
+    printPostOrder(node.right);
+    System.out.print(" "+node.value);
+    
+  }
+  /* public static void printPreOrder(BinaryTreeNode node)
+  {
+    if(node ==null)return;
+    System.out.print(" "+node.value);
+    printPreOrder(node.left);
+    printPreOrder(node.right);
+    
+  }*/
+  
+public static void printPreOrder(BinaryTreeNode node)
+{
+  
+ Deque<BinaryTreeNode> preOrderStack = new ArrayDeque<BinaryTreeNode>(); 
+ BinaryTreeNode curr= node;
+  preOrderStack.push(curr);
+  
+  while(!preOrderStack.isEmpty())
+  {
+    BinaryTreeNode element = preOrderStack.pop();
+    System.out.print(" "+element.value);
+        if(element.right != null)
+      preOrderStack.push(element.right);
+    if(element.left != null)
+      preOrderStack.push(element.left);
+  }
+}
+  
+
+public static void main(String args[])
+{
+  final BinaryTreeNode root = new BinaryTreeNode(50);
+        final BinaryTreeNode a = root.insertLeft(30);
+        a.insertLeft(10);
+        a.insertRight(40);
+        final BinaryTreeNode b = root.insertRight(70);
+        b.insertLeft(60);
+        b.insertRight(80);
+        
+      // printInOrder(root);
+      //  printPreOrder(root);
+  printPostOrder(root);
+  
+}
+}
