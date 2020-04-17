@@ -1,0 +1,53 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val,Node _left,Node _right) {
+        val = _val;
+        left = _left;
+        right = _right;
+    }
+};
+*/
+/*Time complexity is O(N) as we visit each node atleast once and max twice
+Space complexity is O(N) to hold the stack
+*/
+class Solution {
+    public Node treeToDoublyList(Node root) {
+        
+        if(root == null)
+            return null;
+        Node dummy = new Node();
+        Node prev=dummy;
+        Deque<Node> stackNode = new ArrayDeque<Node>();
+  Node curr = root;
+  while(!stackNode.isEmpty() || curr !=null)
+  {
+    while(curr!=null)
+    {
+      stackNode.push(curr);
+      curr=curr.left;
+    }
+    
+    Node node = stackNode.pop();
+      curr=node.right;
+    node.left = prev;
+    prev.right = node;
+    prev=node;
+  }
+  Node head = dummy.right;
+  head.left=prev;
+  prev.right=head;
+  return head;
+    
+    }
+}
