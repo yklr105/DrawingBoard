@@ -1,0 +1,70 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ Time Complexity in both the cases are O(N) where we visit each node of the Binary tree, Space complexity is O(N): In case of recursive call, for call stack and in interative appraoch for storing dictionary 
+ * }
+ */
+class Solution {
+    private TreeNode ancestor;
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        this.findAncestor(root,p,q);
+        return this.ancestor;
+    }
+    public boolean findAncestor(TreeNode node,TreeNode p,TreeNode q)
+    {
+        if(node ==null)
+        {
+            return false;
+        }
+        int left = this.findAncestor(node.left,p,q) ?1:0;
+        int right = this.findAncestor(node.right,p,q)?1:0;
+        int mid = (node ==p || node ==q)?1:0;
+        
+        if(mid+left+right>=2)
+            this.ancestor = node;
+        return (mid+left+right>0);
+        
+    }
+    
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            
+                Deque<TreeNode> nodeStack = new ArrayDeque<TreeNode>();
+                 Map<TreeNode,TreeNode> ancestorMap = new HashMap<TreeNode,TreeNode>();
+                Set<TreeNode> ancestorSet = new HashSet<TreeNode>(); 
+          
+            if(root ==null)
+                return null;
+          ancestorMap.put(root,null);  
+          nodeStack.push(root);
+          while(!ancestorMap.containsKey(p) || !ancestorMap.containsKey(q))
+          {
+            TreeNode element = nodeStack.pop();
+            if(element.left != null)
+            {
+              nodeStack.push(element.left);
+              ancestorMap.put(element.left,element);
+            }
+            if(element.right!=null)
+            {
+              nodeStack.push(element.right);
+              ancestorMap.put(element.right,element);
+            }
+          }
+          TreeNode curr = p;
+          while(curr!=null)
+          {
+            ancestorSet.add(curr);
+            curr = ancestorMap.get(curr);
+          }
+          
+          while(!ancestorSet.contains(q))
+          {
+            q=ancestorMap.get(q);
+          }
+          return q;
+    }
+}
