@@ -1,0 +1,53 @@
+class Solution {
+    /*Time complexity is O(LogN)
+    Space complexity is O(1)*/
+     public static int findRotationPoint(int [] nums)
+  {
+   
+    int lowIndex = 0;
+    int highIndex = nums.length-1;
+    while(lowIndex<highIndex)
+    {
+      int midIndex = (lowIndex+highIndex)/2;
+      if(nums[midIndex] < nums[lowIndex])
+        highIndex = midIndex;
+      else
+        lowIndex=midIndex;
+      
+      if(lowIndex+1==highIndex)
+        break;
+    }
+    return highIndex;
+  
+  }
+  
+  public static int binarySearch(int []nums,int startIndex,int endIndex,int target)
+  {
+    while(startIndex<=endIndex)
+    {
+      int midIndex = (startIndex+endIndex)/2;
+      if(nums[midIndex]== target)
+        return midIndex;
+      if(target < nums[midIndex])
+        endIndex = midIndex-1;
+      else
+        startIndex=midIndex+1;
+        
+    }
+    return -1;
+  }
+    public int search(int[] nums, int target) {
+        if(nums.length ==0) return -1;
+        int rotationPoint = findRotationPoint(nums);
+  
+  if(nums[rotationPoint]==target)
+    return rotationPoint;
+  if(rotationPoint == 0)
+    return binarySearch(nums,0,nums.length-1,target);
+  if(target < nums[0])
+    return binarySearch(nums,rotationPoint,nums.length-1,target);
+  else return binarySearch(nums,0,rotationPoint,target);  
+   
+
+    }
+}
