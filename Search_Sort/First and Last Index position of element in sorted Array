@@ -1,0 +1,36 @@
+class Solution {
+    /*
+    Time complexity is O(LogN)
+    Space complexity is O(1)
+    */
+    public int[] searchRange(int[] nums, int target) {
+      
+      int [] returnArray = new int[]{-1,-1};
+
+      int leftIndex= findIndex(nums,target,true);
+      if(leftIndex>=0 && leftIndex<nums.length&&nums[leftIndex]==target)
+      {
+        returnArray[0]=leftIndex;
+        returnArray[1]= findIndex(nums,target,false)-1;
+      }
+      return returnArray; 
+    }
+ public int findIndex(int[] nums,int target,boolean leftIndex)
+  {
+    int start=0,end=nums.length-1;
+    while(start<=end)
+    {
+      int mid = (start+end)/2;
+      if(nums[mid]>target || (leftIndex && nums[mid]==target))
+      {
+        end = mid-1;
+      }
+      else
+      {
+        start=mid+1;
+      }
+    }
+    
+    return start;
+  }
+}
