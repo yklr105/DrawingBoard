@@ -1,0 +1,25 @@
+class Solution {
+    /*Time complexity is O(logx to base 10) as we keep dividing the number by 10
+    Space complexity is O(1)*/
+    public int reverse(int x) {
+        if(x == Integer.MIN_VALUE || x== Integer.MAX_VALUE)
+            return 0;
+        
+        int answer = 0;
+        int sign = x< 0?-1:1;
+        x=Math.abs(x);
+        int num=0;
+        while(x!=0)
+        {
+            num = x%10;
+             x/=10;
+           if(Integer.MAX_VALUE/10 < answer || (Integer.MAX_VALUE/10 == answer && Integer.MAX_VALUE %10 < num))
+           {
+               System.out.println("ans"+answer);
+               return 0;
+           }
+            answer=answer*10+num;
+        }
+        return answer*sign;
+    }
+}
