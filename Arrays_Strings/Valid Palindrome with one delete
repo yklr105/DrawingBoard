@@ -1,0 +1,37 @@
+class Solution {
+    /*
+    Time complexity is O(N)
+    Space compelxity is O(N), this can be avoided by using String.charAt(i) rather than creating the char Array 
+    */
+    public boolean validPalindrome(String s) {
+      int i=0,j=s.toCharArray().length-1;
+      char [] charArray = s.toCharArray();
+      while(i<j)
+      {
+        if(charArray[i]==charArray[j])
+        {
+          i++;
+          j--;
+        }
+        else
+        {
+          return isValidPalindrome(charArray,i,j-1) || isValidPalindrome(charArray,i+1,j);
+          
+        }
+      }
+      return true;
+    }  public static boolean isValidPalindrome(char [] charArray,int start,int end)
+  {
+    while(start<end)
+    {
+      if(charArray[start] != charArray[end] )
+        return false;
+      else
+      {
+        start++;
+        end--;
+      }
+    }
+    return true;
+  }
+}
