@@ -1,0 +1,50 @@
+// Question One = isNumber() function
+// Input: string
+// Output: boolean
+//123--true
+// ".12.3" => false
+// "abc" => false
+
+
+// "-.", "+." --false
+//-,+ return false
+
+// "." --> Create a new bug: "..5"
+//Time complexity is O(N)
+//Space COmplexity : Currently Sapce complexity is O(N), it can be reduced to O(1)
+public class NumberValidator
+{
+  
+ public boolean isNumber(String numStr)
+ {
+   if(numStr.isEmpty())
+     return false;
+   
+   char [] numStrArray = numStr.toCharArray();
+   int checkIndex=0;
+   int decimalCount=0;
+   if(numStrArray[0]=='-' || numStr[0]=='+')
+     checkIndex++;
+   if(numStrArray.length==1 && numStrArray[0]=='\.')
+     return false;
+   if(checkIndex==numStrArray.length)
+     return false;
+   
+   if(checkIndex ==1 && numStrArray.length ==2 && numStrArray[1=='\.'])
+     return false;
+   
+   for(int i=checkIndex;i<numStrArray.length;i++)
+   {
+     if(numStrArray[i] == '\.')
+     {
+       decimalCount++;
+     }
+     if(decimalCount>1)
+       return false;
+     
+     if(!Character.isDigit(numStrArray[i]) || numStrArray[i]!='\.')
+       return false;
+   }
+   return true;
+ }  
+}
