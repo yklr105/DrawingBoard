@@ -1,0 +1,54 @@
+/*Task Scheduler
+List of tasks: A, A, B, A
+Cooldown time: 2
+Total time:    A__AB_A => 7
+
+               A, B, C, A, B, C
+               3
+               ABC_ABC
+Time Complexity :O(N)
+Space Complexity:The hashmap to represent the distinct characters in the input array
+               */
+               
+public class TaskScheduler{
+
+  public int getTotalTime(char[] inputArray,int coolDown)
+  {
+    
+    if(inputArray.length == 0)
+      return 0;
+    if(inputArray.length ==1)
+      return 1;
+    
+    int returnTime = 1;
+    Map<Character,Integer> taskMap = new HashMap<Character,Integer>();
+    taskMap.put(inputArray[0],0);
+    
+    for(int i=1;i<inputArray.length;i++)
+    {
+      if(taskMap.containsKey(inputArray[i]))
+      {
+        returnTime++;
+        taskMap.put(inputArray[i],i);
+      }
+      else
+      {
+        int lastExecDiff= i-taskMap.get(inputArray[i])+1;
+        if(coolDown > lastExecDiff)
+        {
+          returnTime++;
+        }
+        else
+        {
+          returnTime+=lastExecDiff;
+        }
+         taskMap.put(inputArray[i],i);
+      }
+      
+    }
+  
+    return returnTime;
+    
+  }
+
+}               
