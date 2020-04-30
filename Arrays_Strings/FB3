@@ -1,0 +1,53 @@
+Design a data structure that supports all following operations in average O(1) time.
+
+boolean insert(val): Inserts an item val to the set if not already present.
+boolean remove(val): Removes an item val from the set if present.
+int getRandom(): Returns a random element from current set of elements. Each element must have the same probability of being returned.
+  
+  
+insert(3) -> true
+insert(5) -> true
+insert(6) -> true
+getRandom() -> 3/5/6 with 33% probability
+remove(2) ->  false
+remove(5) -> true
+  
+ public class CustomDS
+ {
+   
+   private static Map<Integer,Integer> dataMap = new HashMap<Integer,Integer>();
+   private static List<Integer> dataList = new ArrayList<Integer>();
+   private static Integer listIndex=0;
+   
+   public boolean insert(int value)
+   {
+     if(dataMap.containsKey(value))
+       return false;
+     else
+     {
+       dataMap.put(value,listIndex++);
+       dataList.add(val);
+     }
+     return true;
+   }
+   
+   public boolean remove(int val)
+   {
+     if(dataMap.containsKey(val))
+     {
+       int index = dataMap.get(val);
+       int lastItem = dataList.get(dataList.size()-1);
+       return true;
+     }
+     else
+       return false;
+   }
+   
+   public int getRandom()
+   {
+     
+     
+     
+   }
+   
+ }
