@@ -1,0 +1,23 @@
+/*
+Time Complexity is O(log10N)
+Space complexity is O(1)
+*/
+class Solution {
+    public boolean isPalindrome(int x) {
+
+        if(x<0 ||(x%10==0 && x!=0))
+            return false;
+        int reversedNumber=0;
+        while(x>reversedNumber)
+        {
+            reversedNumber*=10;
+            reversedNumber+=(x%10);
+            x=x/10;
+            System.out.println(reversedNumber);
+        }
+        if(reversedNumber == x || reversedNumber/10 == x)
+            return true;
+        else
+            return false;
+    }
+}
