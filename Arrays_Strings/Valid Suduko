@@ -1,0 +1,44 @@
+/*Time Complexity is O(1), Space Complexity is O(1)*/
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        /*Validate each row for duplicates*/ 
+    Map<Integer,Set<Character>> boxMap= new  HashMap<Integer,Set<Character>>(); 
+    for(int i=0;i<9;i++)
+    {
+      Set<Character> rowSet = new HashSet<Character>();
+      Set<Character> colSet = new HashSet<Character>();
+    
+      for(int j=0;j<9;j++)
+      {
+        if(board[i][j]!='.' && rowSet.contains(board[i][j]))
+          return false;
+        else
+          rowSet.add(board[i][j]);
+        
+        if(board[j][i]!='.' && colSet.contains(board[j][i]))
+          return false;
+        else
+          colSet.add(board[j][i]);
+          
+          int boxIndex = ((i/3)*3)+(j/3);
+          if(boxMap.containsKey(boxIndex) && board[i][j]!='.')
+          {
+            if(boxMap.get(boxIndex).contains(board[i][j]))
+            {
+              return false;
+          }
+            else
+              boxMap.get(boxIndex).add(board[i][j]);
+          }
+        else if(board[i][j]!='.')
+        {
+          Set<Character> boxSet = new HashSet<Character>();
+          boxSet.add(board[i][j]);
+          boxMap.put(boxIndex,boxSet);
+        }
+      }
+    }
+      
+   return true;
+  }
+}
