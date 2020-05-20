@@ -1,0 +1,47 @@
+/*
+Time complexity is O((N-L)L) for worst case and O(N) for best case
+*/
+class Solution {
+    public int strStr(String haystack, String needle) {
+         if(needle.length()==0)
+          return 0;
+      if(haystack.length() < needle.length())
+        return -1;
+      int i=0,j=0,index=Integer.MAX_VALUE,currLen=0;;
+      
+      while(i<haystack.length())
+      {
+      
+        if(haystack.charAt(i) == needle.charAt(j))
+        {
+          index = Math.min(i,index);
+          i++;
+          currLen++;
+          if(j+1 < needle.length())
+          {
+            j++;
+          }
+          else
+            break;
+        }
+        else
+        {
+          if(index != Integer.MAX_VALUE)
+          {
+          
+            index= Integer.MAX_VALUE;
+            j=0;
+            i=i-currLen+1;
+            currLen=0;
+          }
+          else
+          {
+            i++;
+          }
+          
+        }
+      }
+        if(index+needle.length() > haystack.length()) return -1;
+        return (index == Integer.MAX_VALUE || j!=(needle.length()-1))?-1:index; 
+    }
+}
