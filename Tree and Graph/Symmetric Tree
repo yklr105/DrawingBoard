@@ -1,0 +1,58 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ Time Complexity is O(N)
+ Space Complexity is O(N)
+ */
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(root==null ||(root!=null && root.right==null && root.left==null))
+        return true;
+        if( root!=null && (root.right ==null || root.left==null))
+        return false;
+  
+ 
+      
+      LinkedList<TreeNode> leftQueue = new LinkedList<TreeNode>();
+      LinkedList<TreeNode> rightQueue = new LinkedList<TreeNode>();
+      rightQueue.add(root.right);
+      leftQueue.push(root.left);
+        
+      while(!rightQueue.isEmpty() && !leftQueue.isEmpty())
+      {
+        TreeNode left = leftQueue.pop();
+        TreeNode right = rightQueue.remove();
+        
+         if(left==null && right==null)
+             continue;
+         if(left==null || right == null)
+             return false;
+        if( left.val!=right.val)
+        {
+          return false;
+        }
+
+        rightQueue.addLast(right.right);
+        rightQueue.addLast(right.left);
+        
+        leftQueue.addLast(left.left);
+        leftQueue.addLast(left.right);
+   
+      }
+      if(!rightQueue.isEmpty() || !leftQueue.isEmpty())
+        return false;
+      
+      return true;
+    }
+}
