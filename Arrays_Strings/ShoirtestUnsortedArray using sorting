@@ -1,0 +1,23 @@
+class Solution {
+    /*Time Complexity is O(nlogN)
+    Space COmplexity is O(N)
+    */
+    public int findUnsortedSubarray(int[] nums) {
+        int [] numsCopy = nums.clone();
+        Arrays.sort(numsCopy);
+        int l=0,r=nums.length;
+        for(int i=0;i<nums.length;i++)
+        {
+            if(nums[i]!=numsCopy[i])
+            {
+                l=Math.max(l,i);
+                r=Math.min(r,i);
+
+            }
+        }
+
+
+        return (l-r >= 0 ? l-r+1:0);
+
+    }
+}
