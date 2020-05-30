@@ -1,0 +1,24 @@
+/*
+Time complexity is O(M*N)
+Space complexity is O(1)
+
+*/
+class Solution {
+    public boolean isToeplitzMatrix(int[][] matrix) {
+      for(int i=1;i<matrix.length;i++)
+        for(int j=1;j<matrix[i].length;j++)
+        {
+          boolean elementVal = helper(matrix,i,j);
+          if (elementVal==false)
+            return false;
+        }
+      return true;
+        
+    }
+  public boolean helper(int [][]matrix,int i,int j)
+  {
+    if(matrix[i-1][j-1]==matrix[i][j])
+      return true;
+    else return false;
+  }
+}
