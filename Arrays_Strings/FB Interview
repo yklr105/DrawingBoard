@@ -15,40 +15,38 @@ public class TaskScheduler{
   public int getTotalTime(char[] inputArray,int coolDown)
   {
     
-    if(inputArray.length == 0)
+     if(inputArray.length == 0)
       return 0;
     if(inputArray.length ==1)
       return 1;
     
-    int returnTime = 1;
+    int returnTime = 0;
     Map<Character,Integer> taskMap = new HashMap<Character,Integer>();
-    taskMap.put(inputArray[0],0);
+
     
-    for(int i=1;i<inputArray.length;i++)
+    for(int i=0;i<inputArray.length;i++)
     {
-      if(taskMap.containsKey(inputArray[i]))
+      if(!taskMap.containsKey(inputArray[i]))
       {
         returnTime++;
-        taskMap.put(inputArray[i],i);
+        taskMap.put(inputArray[i],returnTime);
       }
       else
       {
-        int lastExecDiff= i-taskMap.get(inputArray[i])+1;
+        int lastExecDiff= returnTime-taskMap.get(inputArray[i]);
+          System.out.println("*****"+lastExecDiff);
         if(coolDown > lastExecDiff)
         {
-          returnTime++;
+          System.out.println("In here");
+          returnTime+=coolDown-lastExecDiff;
         }
-        else
-        {
-          returnTime+=lastExecDiff;
-        }
-         taskMap.put(inputArray[i],i);
+           returnTime++;
+         taskMap.put(inputArray[i],returnTime);
       }
       
     }
   
     return returnTime;
-    
   }
 
 }               
