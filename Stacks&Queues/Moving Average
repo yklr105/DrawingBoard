@@ -1,0 +1,35 @@
+class MovingAverage {
+    
+    ArrayDeque<Integer> numQueue = new ArrayDeque<Integer>();
+    Double sum ;
+    Integer queueSize;
+
+    /** Initialize your data structure here. */
+    public MovingAverage(int size) {
+        numQueue = new ArrayDeque<Integer>();
+        sum = new Double(0.0);
+        queueSize = size;
+    }
+    
+    public double next(int val) {
+        numQueue.add(val);
+        if(numQueue.size()<=queueSize)
+        {
+            sum+= val;
+        }
+        else
+        {
+           int num = numQueue.removeFirst();
+            sum = sum - num;
+            sum+=val;
+        }
+        
+        return sum/numQueue.size();
+    }
+}
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * MovingAverage obj = new MovingAverage(size);
+ * double param_1 = obj.next(val);
+ */
