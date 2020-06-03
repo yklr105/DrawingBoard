@@ -1,0 +1,40 @@
+/*
+Time COmplexity is O(N)
+Space COmplexity is also O(N)
+*/
+class Solution {
+    public String removeOuterParentheses(String S) {
+         StringBuffer returnSB = new StringBuffer();
+         StringBuffer partialString = new StringBuffer();
+        ArrayDeque<Character> bracketStack = new ArrayDeque<Character>();
+        int bracketCount = 0;
+        for(int i=0;i<S.length();i++)
+        {
+            if(S.charAt(i)=='(')
+            {
+                bracketCount++;
+                bracketStack.push(S.charAt(i));
+            }
+            else
+            {
+                if(bracketCount>1)
+                {
+                    bracketStack.push(S.charAt(i));
+                    bracketCount--;
+                }
+                else
+                {
+                    partialString = new StringBuffer();
+                while(!bracketStack.isEmpty())
+                {
+                    partialString.append(bracketStack.removeLast());
+                }
+                    returnSB.append(partialString.toString().substring(1));
+                    bracketCount=0;
+                } 
+            }
+        
+        }
+        return returnSB.toString();
+    }
+}
