@@ -1,0 +1,53 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ Time Complexity is O(N), even thought we will visit the tree at max twice
+ Space Complexity is O(N)
+ */
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode curr=root;
+        Set<TreeNode> ancSet = new HashSet<TreeNode>();
+        Deque<TreeNode> nodeStack = new ArrayDeque<TreeNode>();
+      
+
+        while(curr!=null)
+        {
+            ancSet.add(curr);
+            if(curr.val==p.val)
+                break;
+            
+            if(p.val<curr.val)
+            curr=curr.left;
+            else
+            curr=curr.right;
+            
+        }
+        curr=root;
+        while(curr!=null)
+        {
+           
+            nodeStack.push(curr);
+            if(curr.val==q.val)
+                break;
+            if(q.val<curr.val)
+            curr=curr.left;
+            else
+            curr=curr.right;
+        }
+        while(!nodeStack.isEmpty())
+        {
+            curr=nodeStack.pop();
+            
+            if(ancSet.contains(curr))
+                break;
+        }
+return curr;
+    }
+}
