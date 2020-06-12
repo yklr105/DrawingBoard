@@ -1,0 +1,46 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ Time complexity is O(n^2)
+ Space Complexity is O(N) in worst case and O(LogN) in a balanced tree
+ */
+class Solution {
+    public int pathSum(TreeNode root, int sum) {
+        int count =0;
+        if(root==null)
+            return count;
+        Deque<TreeNode> nodeStack = new ArrayDeque<TreeNode>();
+        TreeNode curr = root;
+        nodeStack.push(curr);
+        while(!nodeStack.isEmpty())
+        {
+            curr=nodeStack.pop();
+                count+=hasPathSumRecurr(curr,sum);
+            if(curr.left!=null)
+                nodeStack.push(curr.left);
+            if(curr.right!=null)
+                nodeStack.push(curr.right);
+        }
+        return count;
+        
+    }
+public int hasPathSumRecurr(TreeNode root, int sum) {
+        if(root==null)
+            return 0;
+    int counter=0;
+        if(root.val==sum)
+            counter++;
+        return counter+hasPathSumRecurr(root.left,sum-root.val)+hasPathSumRecurr(root.right,sum-root.val);
+    }
+}
