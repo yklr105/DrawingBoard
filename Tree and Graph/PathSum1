@@ -1,0 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+     public boolean hasPathSum(TreeNode root, int sum) {
+         Deque<TreeNode> nodeStack = new ArrayDeque<TreeNode>();
+         Deque<Integer> sumStack = new ArrayDeque<Integer>();
+         if(root==null)
+             return false;
+         TreeNode curr=root;
+         nodeStack.push(curr);
+         sumStack.push(sum);
+         while(!nodeStack.isEmpty())
+         {
+             curr=nodeStack.pop();
+             int remainingSum= sumStack.pop();
+             if(curr.left==null && curr.right==null&&curr.val==remainingSum)
+                 return true;
+             remainingSum-=curr.val;
+             if(curr.left!=null)
+             {
+                 nodeStack.push(curr.left);
+                 sumStack.push(remainingSum);
+             }
+             if(curr.right!=null)
+             {
+                 nodeStack.push(curr.right);
+                 sumStack.push(remainingSum);
+             }
+         }
+         
+         return false;
+     }
+    /*
+    Time complexity is o(N)
+    Space complexity is best case is tree is balanced O(LogN), worst case is O(N)
+    public boolean hasPathSumRecurr(TreeNode root, int sum) {
+        if(root==null)
+            return false;
+        if(root.left==null && root.right==null && root.val==sum)
+            return true;
+        return hasPathSumRecurr(root.left,sum-root.val)||hasPathSumRecurr(root.right,sum-root.val);
+    }*/
+}
