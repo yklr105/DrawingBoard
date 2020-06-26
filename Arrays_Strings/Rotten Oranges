@@ -1,0 +1,64 @@
+/*
+Time complexity is O(M*N)
+Space complexity isO(M*N)
+*/
+
+import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        Deque<Pair<Integer,Integer>> cords = new ArrayDeque<Pair<Integer,Integer>>();
+        int minutes=0;
+        
+        for(int i=0;i<grid.length;i++)
+            for(int j=0;j<grid[0].length;j++)
+            {
+                if(grid[i][j]==2)
+                {
+                   cords.add(new Pair(i,j));
+                }
+            }
+                while(!cords.isEmpty())
+                {
+                     Deque<Pair<Integer,Integer>> temp = new ArrayDeque<Pair<Integer,Integer>>();
+                    while(!cords.isEmpty())
+                    {
+                    Pair <Integer,Integer>curr = cords.remove();
+                    int row = curr.getKey();
+                    int column = curr.getValue();
+                    if(row-1>=0&&grid[row-1][column]==1)
+                    {
+                        temp.add(new Pair(row-1,column));
+                        grid[row-1][column]=2;
+                    }
+                    if(row+1<grid.length && grid[row+1][column]==1)
+                    {
+                        temp.add(new Pair(row+1,column));
+                        grid[row+1][column]=2;
+                    }
+                    if(column-1>=0&&grid[row][column-1]==1)
+                    {
+                        temp.add(new Pair(row,column-1));
+                        grid[row][column-1]=2;
+                    }
+                    if(column+1<grid[0].length && grid[row][column+1]==1)
+                    {
+                        temp.add(new Pair(row,column+1));
+                        grid[row][column+1]=2;
+                    }
+                    }
+                    if(temp.size()>=1)
+                        minutes++;
+                    cords=temp;
+                }
+            
+        for(int k=0;k<grid.length;k++)
+            for(int l=0;l<grid[0].length;l++)
+                if(grid[k][l]==1)
+                    return -1;
+        
+        return minutes;
+                
+    }
+}
