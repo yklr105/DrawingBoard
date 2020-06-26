@@ -1,0 +1,17 @@
+/*
+Time Complexity O(NlogN) for sorting
+Space complexity is O(N)
+*/
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String,Integer> countMap = new HashMap<String,Integer>();
+        for(String word:words)
+        {
+            countMap.put(word,countMap.getOrDefault(word,0)+1);
+        }
+        List<String> returnList = new ArrayList(countMap.keySet());
+        Collections.sort(returnList,(w1,w2)->countMap.get(w1).equals(countMap.get(w2)) ? w1.compareTo(w2):countMap.get(w2)-countMap.get(w1));
+        return returnList.subList(0,k);
+        
+    }
+}
