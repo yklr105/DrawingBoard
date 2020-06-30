@@ -1,0 +1,41 @@
+/*Time complexity is O(M*N)*/
+
+class Solution {
+    public int islandPerimeter(int[][] grid) {
+        int count=0;
+        for(int i=0;i<grid.length;i++)
+            for(int j=0;j<grid[0].length;j++)
+                if(grid[i][j]==1)
+                {
+                count+=4;
+                    if(i>0&&grid[i-1][j]==1)
+                        count-=2;
+                    if(j>0&&grid[i][j-1]==1)
+                        count-=2;
+                }
+        
+        return count;
+    }
+  /*  private int findPerimeter(int[][]grid,int row,int col)
+    {
+        int returnVal=0;
+        if(row-1<0)
+            returnVal++;
+        if(col-1<0)
+            returnVal++;
+        if(row+1>=grid.length)
+            returnVal++;
+        if(col+1>=grid[0].length)
+            returnVal++;
+        if(col-1>=0&&grid[row][col-1]==0)
+            returnVal++;
+        if(col+1<grid[row].length&&grid[row][col+1]==0)
+            returnVal++;
+        if(row-1>=0&&grid[row-1][col]==0)
+            returnVal++;
+        if(row+1<grid.length&&grid[row+1][col]==0)
+            returnVal++;
+        
+        return returnVal;    
+    }*/
+}
