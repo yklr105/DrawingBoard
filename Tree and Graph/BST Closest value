@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ Time Complexity is O(H)
+ Space Complexity is O(1)
+ */
+class Solution {
+    public int closestValue(TreeNode root, double target) {
+        if (root==null)
+            return 0;
+        if(root!=null && root.left==null && root.right==null)
+            return root.val;
+        
+       
+        TreeNode curr=root;
+        double diff = Double.MAX_VALUE;
+        int returnVal=0;
+        int rndTarget = (int)Math.rint(target);
+        while(curr!=null)
+        {
+            
+            double currDiff = Math.abs(curr.val-target);
+            if(currDiff<diff)
+            {
+                diff=currDiff;
+                returnVal = curr.val;
+            }
+            if(rndTarget>=curr.val)
+            {
+                curr=curr.right;
+            }
+            else if(rndTarget<curr.val)
+            curr=curr.left;
+            
+        }
+        return returnVal;
+    }
+}
