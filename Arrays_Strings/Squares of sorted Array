@@ -1,0 +1,44 @@
+/*Time complexity is O(N)
+Space complexity is O(N)
+*/
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        int indexOne=0;
+        while(indexOne<A.length&& A[indexOne]<=0)
+        {
+            indexOne++;
+        }
+       int positiveIndex=indexOne;
+        indexOne--;
+        
+        int []returnArray = new int[A.length];
+        int returnArrayIndex=0;
+        while(indexOne>=0 && positiveIndex<A.length)
+        {
+            if(A[indexOne]*A[indexOne]<A[positiveIndex]*A[positiveIndex])
+            {
+                returnArray[returnArrayIndex++]=A[indexOne]*A[indexOne];
+                indexOne--;
+            }
+            else
+            {
+                returnArray[returnArrayIndex++]=A[positiveIndex]*A[positiveIndex];
+                positiveIndex++;
+            }
+        }
+        
+        while(indexOne>=0)
+        {
+            returnArray[returnArrayIndex++]=A[indexOne]*A[indexOne];
+            indexOne--;
+        }
+        while(positiveIndex<A.length)
+        {
+            returnArray[returnArrayIndex++]=A[positiveIndex]*A[positiveIndex];
+                positiveIndex++;
+        }
+
+        return returnArray;
+  
+    }
+}
